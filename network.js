@@ -8,9 +8,6 @@ d3.json("./data/publications_network.json").then(function (data){
 
 function simulate(data,svg) {
 
-    console.log(data.nodes)
-    console.log(data.links)
-
     let publications = {};
     data.nodes.forEach((d,i)=>publications[i]=d.count)
 
@@ -86,8 +83,8 @@ function simulate(data,svg) {
             
     let fSim = d3.forceSimulation(data.nodes)
             .force('center',  d3.forceCenter(width/2, height/2))
-            .force('links',   d3.forceLink(data.links).distance(30).strength(.3))
-            .force('collide', d3.forceCollide().radius((d,i)=>radiusScale(publications[i])+16).iterations(5))
+            .force('links',   d3.forceLink(data.links).distance(10).strength(.8))
+            .force('collide', d3.forceCollide().radius((d,i)=>radiusScale(publications[i])+26).iterations(5))
             .force("charge",  d3.forceManyBody().strength(-10))
             .on('tick', update);
 
