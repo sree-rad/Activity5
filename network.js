@@ -82,11 +82,12 @@ function simulate(data,svg) {
         .attr("text-anchor", "middle");
             
     let fSim = d3.forceSimulation(data.nodes)
-            .force('center',  d3.forceCenter(width/2, height/2))
-            .force('links',   d3.forceLink(data.links).distance(10).strength(.8))
-            .force('collide', d3.forceCollide().radius((d,i)=>radiusScale(publications[i])+26).iterations(5))
-            .force("charge",  d3.forceManyBody().strength(-10))
-            .on('tick', update);
+        .force('center',  d3.forceCenter(width/2, height/2))
+        .force('links',   d3.forceLink(data.links).distance(10).strength(.8))
+        .force('collide', d3.forceCollide().radius((d,i)=>radiusScale(publications[i])+26).iterations(5))
+        .force("charge",  d3.forceManyBody().strength(-10))
+        .force("forceY", d3.forceY().strength(.1).y(height * .5))
+        .on('tick', update);
 
     function update() {
         gNodes.attr('transform', d=> { return `translate(${d.x}, ${d.y})`})
